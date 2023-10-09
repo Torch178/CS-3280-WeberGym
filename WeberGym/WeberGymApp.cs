@@ -17,6 +17,7 @@
  * https://dotnettutorials.net/lesson/two-dimensional-array-in-csharp/
  * https://stackoverflow.com/questions/4260207/how-do-you-get-the-width-and-height-of-a-multi-dimensional-array
  * https://www.tutorialspoint.com/Different-ways-for-Integer-to-String-Conversions-in-Chash
+ * https://www.w3resource.com/csharp-exercises/array/csharp-array-exercise-25.php
  */
 
 
@@ -39,43 +40,63 @@ namespace WeberGymApp
 
         private static void DisplayResults(WeberGym wg)
         {
-            //Initialize variables to sum data in table
-            int[]rowSum = wg.CalculateRowSum(wg.Zumba);
-            int[]colSum = wg.CalculateColSum(wg.Zumba);
-            int totalSum = 0;
 
             //Print Headers for Table
-            WriteLine(String.Format("{0,60}", "Weber Gym Weekly Report"));
             WriteLine();
+            WriteLine(String.Format("{0,60}", "Weber Gym Weekly Report"));
+            WriteLine("\n\n");
             WriteLine(String.Format("{0,60}", "Zumba Attendees"));
             WriteLine();
-            WriteLine(String.Format("{0, 12} {1,12} {2,12} {3,12} {4,12} {5,12} {6,12}",  "", "1:00", "3:00", "5:00", "7:00", "Total", "Revenue"));
+            WriteLine(String.Format("{0, 11} {1,11} {2,11} {3,11} {4,11} {5,11} {6,11}",  "", "1:00", "3:00", "5:00", "7:00", "Total", "Revenue"));
 
-            for (int i = 0; i < wg.Zumba.GetLength(0);i++)
-            {  
-                
+            
+            DisplayTable(wg, wg.Zumba, 4);
+
+            //Print Headers for Table
+            WriteLine("\n\n");
+            WriteLine(String.Format("{0,60}", "Spinning Attendees"));
+            WriteLine();
+            WriteLine(String.Format("{0, 11} {1,11} {2,11} {3,11} {4,11} {5,11} {6,11}", "", "2:00", "4:00", "6:00", "8:00", "Total", "Revenue"));
+
+            DisplayTable(wg, wg.Spinning, 5);
+
+            WriteLine("\n\n");
+        }
+
+        private static void DisplayTable(WeberGym wg, int[,] table, int rate)
+        {
+            //Initialize variables to sum data in table
+            int[] rowSum = wg.CalculateRowSum(table);
+            int[] colSum = wg.CalculateColSum(table);
+            int totalSum = 0;
+
+
+            for (int i = 0; i < table.GetLength(0); i++)
+            {
+
                 Write("{0,12}", "");
-                for(int j = 0; j <  wg.Zumba.GetLength(1);j++)
+                for (int j = 0; j < table.GetLength(1); j++)
                 {
-                    Write( "{0,12}", wg.Zumba[i, j]);
+                    Write("{0,12}", table[i, j]);
                 }
                 totalSum += rowSum[i];
                 Write("{0,12}", rowSum[i]);
-                Write("{0,12:D}", rowSum[i] * 4);
-                
+                Write("{0,12:D}", rowSum[i] * rate);
+
                 WriteLine();
             }
 
             Write("{0,12}", "Totals");
-            for (int i = 0;i < wg.Zumba.GetLength(1); i++)
+            for (int i = 0; i < table.GetLength(1); i++)
             {
                 Write("{0,12}", colSum[i]);
 
             }
-            Write("{0,12}", totalSum) ;
-            Write("{0,12:C}", totalSum * 4);
-            
-
+            Write("{0,12}", totalSum);
+            Write("{0,12:C}", totalSum * rate);
         }
+
     }
+
+
 }
