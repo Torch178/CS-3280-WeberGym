@@ -45,7 +45,8 @@ namespace WeberGymApp
                 {8,4,9,4 },
                 {4,5,9,3 }
             };
-                
+
+            
         }
 
         public int CalculateRowTotal(int row, char c)
@@ -75,7 +76,35 @@ namespace WeberGymApp
 
             return colTotal;
         }
-        
+
+        public int[] CalculateRowSum(int[,] table)
+        {
+            int[] rowSum = new int[table.GetLength(0)];
+            for(int i = 0; i < table.GetLength(0); i++)
+            {
+                rowSum[i] = 0;
+                for (int j = 0; j < table.GetLength(1); j++)
+                {
+                    rowSum[i] = rowSum[i] + table[i,j];
+                }
+            }
+            return rowSum;
+        }
+
+        public int[] CalculateColSum(int[,] table)
+        {
+            int[] colSum = new int[table.GetLength(1)];
+            for (int i = 0; i < table.GetLength(1); i++)
+            {
+                colSum[i] = 0;
+                for (int j = 0; j < table.GetLength(0); j++)
+                {
+                    colSum[i] = colSum[i] + table[j, i];
+                }
+            }
+            return colSum;
+        }
+
     }
 
     

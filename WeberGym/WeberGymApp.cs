@@ -39,21 +39,42 @@ namespace WeberGymApp
 
         private static void DisplayResults(WeberGym wg)
         {
-            
+            //Initialize variables to sum data in table
+            int[]rowSum = wg.CalculateRowSum(wg.Zumba);
+            int[]colSum = wg.CalculateColSum(wg.Zumba);
+            int totalSum = 0;
+
+            //Print Headers for Table
             WriteLine(String.Format("{0,60}", "Weber Gym Weekly Report"));
             WriteLine();
             WriteLine(String.Format("{0,60}", "Zumba Attendees"));
-            for(int i = 0; i < wg.Zumba.GetLength(0);i++)
-            {
-                int rowTotal = 0;
-                Write(String.Format("{0,10}", ""));
+            WriteLine();
+            WriteLine(String.Format("{0, 12} {1,12} {2,12} {3,12} {4,12} {5,12} {6,12}",  "", "1:00", "3:00", "5:00", "7:00", "Total", "Revenue"));
+
+            for (int i = 0; i < wg.Zumba.GetLength(0);i++)
+            {  
+                
+                Write("{0,12}", "");
                 for(int j = 0; j <  wg.Zumba.GetLength(1);j++)
                 {
-                    Write(String.Format("{" + j+1.ToString() + ",10", wg.Zumba[i,j]));
-                    rowTotal += wg.Zumba[i, j];
+                    Write( "{0,12}", wg.Zumba[i, j]);
                 }
-                Write(String.Format("{" + (wg.Zumba.GetLength(1) + 1).ToString() + ",10",); 
+                totalSum += rowSum[i];
+                Write("{0,12}", rowSum[i]);
+                Write("{0,12:D}", rowSum[i] * 4);
+                
+                WriteLine();
             }
+
+            Write("{0,12}", "Totals");
+            for (int i = 0;i < wg.Zumba.GetLength(1); i++)
+            {
+                Write("{0,12}", colSum[i]);
+
+            }
+            Write("{0,12}", totalSum) ;
+            Write("{0,12:C}", totalSum * 4);
+            
 
         }
     }
